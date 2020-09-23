@@ -1,0 +1,106 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 4.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Adding a EULA form to the VB6 Package and Deployment Wizard</title>
+</head>
+
+<body>
+
+<div align="left">
+  <table border="0" cellpadding="0" cellspacing="0" width="97%" height="39">
+    <tr>
+      <td width="100%" colspan="3" height="24">
+        <p align="center"><font face="Arial" size="4">Adding a EULA form to the
+        VB6 Package and Deployment Wizard</font></td>
+    </tr>
+    <tr>
+      <td width="5%" height="13"></td>
+      <td width="91%" height="13" align="center"><img border="0" src="Eula.gif" width="402" height="364"><br>
+      </td>
+      <td width="4%" height="13"></td>
+    </tr>
+    <tr>
+      <td width="5%" height="1"></td>
+      <td width="91%" height="1" valign="top" align="left"><font face="Times New Roman" size="3">#1:
+        <b>BACK UP YOUR C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Setup1<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; and don't forget to do #8<br>
+        </b><br>
+        #2: Load the Setup1.vbp project into Visual Basic.<br>
+        <br>
+        #3: Add the following to the project.<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Project&nbsp; .... add the
+        ritchtextbox to the toolbox<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Module ..... resfile.bas<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Form&nbsp;&nbsp;&nbsp; ..... EulaForm1.frm
+        ( if you load this before adding a Ritchtextbox it will error)<br>
+        <br>
+        #4: Remove setup1.frm from the project and add the new setup1.frm<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; or you can just edit the following ..<br>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; In the setup1.frm Form Load event look
+        for the following ...<br>
+        <br>
+        </font><font face="Times New Roman" size="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        ' Display the background "blue-wash" setup screen as soon as we get the title<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ShowMainForm<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' Display the welcome dialog<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ShowWelcomeForm<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; '<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 'show
+        are Eula form<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FrmEula.Show vbModal</font><font face="Times New Roman" size="3"><br>
+        <br>
+        </font></td>
+      <td width="4%" height="1"></td>
+    </tr>
+    <tr>
+      <td width="5%" height="85"></td>
+      <td width="91%" height="85" valign="top" align="left">#5: Open the <font face="Times New Roman" size="3">setup1.res&nbsp;<br>
+        <br>
+        <img border="0" src="IDE.gif" width="672" height="332"><br>
+        <br>
+        #6: Add a Custom Resource and locate your eula.rtf&nbsp; file and add
+        it.<br>
+        <img border="0" src="add-dialog.gif" width="448" height="349"><br>
+        <br>
+        #7: Save the Project and compile it, close the IDE.<br>
+        <br>
+        #8: <b>IMPORTANT STEP .....</b><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Since the setup1.exe is now using a
+        ritchtextbox we need to have the bootstrap from setup.exe install it.<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; To do this you need to do the following.</font>
+        <p><font face="Times New Roman" size="3">&nbsp;&nbsp;&nbsp; A:&nbsp; Run
+        the PWD on your project and create the install. dont forget to add the
+        ritchtextbox.ocx and dll.<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( Riched32.dll
+        and Richtx32.Ocx ) if your project doesn't use one.<br>
+        <br>
+        &nbsp;&nbsp;&nbsp; B: in the package folder locate the Setup.lst file
+        and open it in Notepad.<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; at the end of the [Bootstrap Files]
+        section add the following information.<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ( this can be found in the [Setup1 Files]
+        section of the file )</font></p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; File8=@RICHED32.DLL,$(WinSysPathSysFile),,,5/7/98 12:00:00 AM,174352,4.0.993.4<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; File9=@RICHTX32.OCX,$(WinSysPath),$(DLLSelfRegister),$(Shared),5/22/00 12:00:00 AM,203976,6.0.88.4<br>
+        </p>
+        <p>&nbsp;</p>
+        <p><font face="Times New Roman" size="3">&nbsp;&nbsp;&nbsp; </font></p>
+        <p><font face="Times New Roman" size="3"><br>
+        </font></p>
+        <p>&nbsp;</td>
+      <td width="4%" height="85"></td>
+    </tr>
+  </table>
+</div>
+
+</body>
+
+</html>
